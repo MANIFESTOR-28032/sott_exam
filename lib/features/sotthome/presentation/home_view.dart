@@ -8,6 +8,7 @@ import 'package:hive_repository/features/sotthome/manager/home_bloc.dart';
 import 'package:hive_repository/features/sotthome/manager/home_state.dart';
 import 'package:hive_repository/features/sotthome/widgets/home_items.dart';
 import '../widgets/top_action_button.dart';
+import '../widgets/custom_navigation_bar.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -22,10 +23,18 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) => _buildBody(state),
       ),
-      bottomNavigationBar: _buildNavigationBar(),
+      bottomNavigationBar: CustomNavigationBar(
+        selectedIndex: _selectedIndex,
+        onDestinationSelected: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+      ),
     );
   }
 
@@ -38,61 +47,70 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget _buildContent(HomeState state) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: CustomScrollView(
-        slivers: [
-          _buildAppBar(),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return CustomScrollView(
+      slivers: [
+        SliverToBoxAdapter(
+          child: Stack(
+            children: [
+              // Фон только под верхней частью
+              Container(
+                height: 220, // высота под AppBar и кнопки
+                width: double.infinity,
+                child: Image.asset(
+                  AppImages.backround,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Column(
                 children: [
-                  TopActionButton(
-                    iconPath: 'assets/icons/search.svg',
-                    label: 'Покупка',
-                    onTap: () {},
-                  ),
-                  TopActionButton(
-                    iconPath: 'assets/icons/building.svg',
-                    label: 'Продажа',
-                    onTap: () {},
-                  ),
-                  TopActionButton(
-                    iconPath: 'assets/icons/timer.svg',
-                    label: 'Аренда',
-                    onTap: () {},
-                  ),
-                  TopActionButton(
-                    iconPath: 'assets/icons/train.svg',
-                    label: 'Сдать',
-                    onTap: () {},
+                  const SizedBox(height: 32), // отступ сверху
+                  _buildAppBarRow(),
+                  const SizedBox(height: 24),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TopActionButton(
+                          iconPath: 'assets/icons/search.svg',
+                          label: 'Покупка',
+                          onTap: () {},
+                        ),
+                        TopActionButton(
+                          iconPath: 'assets/icons/building.svg',
+                          label: 'Продажа',
+                          onTap: () {},
+                        ),
+                        TopActionButton(
+                          iconPath: 'assets/icons/timer.svg',
+                          label: 'Аренда',
+                          onTap: () {},
+                        ),
+                        TopActionButton(
+                          iconPath: 'assets/icons/train.svg',
+                          label: 'Сдать',
+                          onTap: () {},
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
-            ),
+            ],
           ),
-          _buildGrid(state),
-        ],
-      ),
+        ),
+        _buildGrid(state),
+      ],
     );
   }
 
-  Widget _buildAppBar() {
-    return SliverPadding(
+  Widget _buildAppBarRow() {
+    return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      sliver: SliverAppBar(
-        floating: true,
-        snap: true,
-        pinned: false,
-        expandedHeight: 150.h,
-        flexibleSpace: FlexibleSpaceBar(
-          background: Image.asset(AppImages.backround),
-        ),
-        leading: SvgPicture.asset(AppIcons.logo),
-        leadingWidth: 70,
-        actions: [
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SvgPicture.asset(AppIcons.logo),
           SvgPicture.asset(AppIcons.notification),
         ],
       ),
@@ -105,7 +123,7 @@ class _HomeViewState extends State<HomeView> {
       sliver: SliverGrid(
         delegate: SliverChildBuilderDelegate(
           childCount: state.home.length,
-          (context, index) => HomeItems(home: state.home[index]),
+              (context, index) => HomeItems(home: state.home[index]),
         ),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
@@ -116,42 +134,6 @@ class _HomeViewState extends State<HomeView> {
         ),
       ),
     );
-  }
-
-  Widget _buildNavigationBar() {
-    return NavigationBar(
-      selectedIndex: _selectedIndex,
-      onDestinationSelected: _onDestinationSelected,
-      height: 70,
-      backgroundColor: Colors.white,
-      indicatorColor: Colors.amber.shade100,
-      destinations: const [
-        NavigationDestination(
-          icon: Icon(Icons.home_outlined),
-          selectedIcon: Icon(Icons.home, color: Colors.amber),
-          label: 'Главная',
-        ),
-        NavigationDestination(
-          icon: Icon(Icons.search),
-          selectedIcon: Icon(Icons.search, color: Colors.amber),
-          label: 'Поиск',
-        ),
-        NavigationDestination(
-          icon: Icon(Icons.chat_bubble_outline),
-          selectedIcon: Icon(Icons.chat_bubble, color: Colors.amber),
-          label: 'Чат',
-        ),
-        NavigationDestination(
-          icon: Icon(Icons.person_outline),
-          selectedIcon: Icon(Icons.person, color: Colors.amber),
-          label: 'Профиль',
-        ),
-      ],
-    );
-  }
-
-  void _onDestinationSelected(int index) {
-    setState(() => _selectedIndex = index);
   }
 }
 
@@ -167,6 +149,6 @@ class _LoadingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => const Center(
-        child: CircularProgressIndicator(),
-      );
+    child: CircularProgressIndicator(),
+  );
 }

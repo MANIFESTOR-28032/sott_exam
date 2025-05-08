@@ -19,25 +19,25 @@ class TopActionButton extends StatelessWidget {
       children: [
         Material(
           color: Colors.amber,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(16), // чуть больше радиус
           child: InkWell(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(16),
             onTap: onTap,
             child: Padding(
-              padding: const EdgeInsets.all(14.0),
+              padding: const EdgeInsets.all(20.0), // больше паддинг
               child: SvgPicture.asset(
                 iconPath,
-                width: 28,
-                height: 28,
+                width: 38, // больше размер иконки
+                height: 38,
                 color: Colors.black,
               ),
             ),
           ),
         ),
-        SizedBox(height: 6),
+        const SizedBox(height: 8), // чуть больше отступ
         Text(
           label,
-          style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600), // чуть больше шрифт
         ),
       ],
     );
