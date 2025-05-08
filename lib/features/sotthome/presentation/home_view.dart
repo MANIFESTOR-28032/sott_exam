@@ -7,7 +7,6 @@ import 'package:hive_repository/core/utils/images.dart';
 import 'package:hive_repository/features/sotthome/manager/home_bloc.dart';
 import 'package:hive_repository/features/sotthome/manager/home_state.dart';
 import 'package:hive_repository/features/sotthome/widgets/home_items.dart';
-
 import '../widgets/bottom.dart';
 
 class HomeView extends StatefulWidget {

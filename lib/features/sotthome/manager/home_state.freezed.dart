@@ -1,19 +1,11 @@
 part of 'home_state.dart';
 
-// **************************************************************************
-// FreezedGenerator
-// **************************************************************************
-
-// dart format off
 T _$identity<T>(T value) => value;
 
-/// @nodoc
 mixin _$HomeState {
   List<HomeModel> get home;
   HomeStatus get status;
 
-  /// Create a copy of HomeState
-  /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
   $HomeStateCopyWith<HomeState> get copyWith =>
@@ -38,7 +30,6 @@ mixin _$HomeState {
   }
 }
 
-/// @nodoc
 abstract mixin class $HomeStateCopyWith<$Res> {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) _then) =
       _$HomeStateCopyWithImpl;
@@ -46,15 +37,12 @@ abstract mixin class $HomeStateCopyWith<$Res> {
   $Res call({List<HomeModel> home, HomeStatus status});
 }
 
-/// @nodoc
 class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
   _$HomeStateCopyWithImpl(this._self, this._then);
 
   final HomeState _self;
   final $Res Function(HomeState) _then;
 
-  /// Create a copy of HomeState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -64,17 +52,15 @@ class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
     return _then(_self.copyWith(
       home: null == home
           ? _self.home
-          : home // ignore: cast_nullable_to_non_nullable
+          : home
               as List<HomeModel>,
       status: null == status
           ? _self.status
-          : status // ignore: cast_nullable_to_non_nullable
+          : status
               as HomeStatus,
     ));
   }
 }
-
-/// @nodoc
 
 class _HomeState implements HomeState {
   const _HomeState({required final List<HomeModel> home, required this.status})
@@ -84,15 +70,12 @@ class _HomeState implements HomeState {
   @override
   List<HomeModel> get home {
     if (_home is EqualUnmodifiableListView) return _home;
-    // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_home);
   }
 
   @override
   final HomeStatus status;
 
-  /// Create a copy of HomeState
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
@@ -118,7 +101,6 @@ class _HomeState implements HomeState {
   }
 }
 
-/// @nodoc
 abstract mixin class _$HomeStateCopyWith<$Res>
     implements $HomeStateCopyWith<$Res> {
   factory _$HomeStateCopyWith(
@@ -129,15 +111,12 @@ abstract mixin class _$HomeStateCopyWith<$Res>
   $Res call({List<HomeModel> home, HomeStatus status});
 }
 
-/// @nodoc
 class __$HomeStateCopyWithImpl<$Res> implements _$HomeStateCopyWith<$Res> {
   __$HomeStateCopyWithImpl(this._self, this._then);
 
   final _HomeState _self;
   final $Res Function(_HomeState) _then;
 
-  /// Create a copy of HomeState
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $Res call({
@@ -147,11 +126,11 @@ class __$HomeStateCopyWithImpl<$Res> implements _$HomeStateCopyWith<$Res> {
     return _then(_HomeState(
       home: null == home
           ? _self._home
-          : home // ignore: cast_nullable_to_non_nullable
+          : home
               as List<HomeModel>,
       status: null == status
           ? _self.status
-          : status // ignore: cast_nullable_to_non_nullable
+          : status
               as HomeStatus,
     ));
   }
