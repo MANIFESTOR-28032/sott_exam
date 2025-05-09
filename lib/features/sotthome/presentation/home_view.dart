@@ -111,12 +111,28 @@ class _HomeViewState extends State<HomeView> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SvgPicture.asset(AppIcons.logo),
-          SvgPicture.asset(AppIcons.notification),
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: () {
+              },
+              splashColor: Colors.black12,
+              highlightColor: Colors.transparent,
+              borderRadius: BorderRadius.circular(12),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SvgPicture.asset(
+                  AppIcons.notification,
+                  width: 24,
+                  height: 24,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
-
   Widget _buildGrid(HomeState state) {
     return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: 20),

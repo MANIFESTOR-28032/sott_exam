@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'pentagon_clipper.dart';
 
 class CustomNavigationBar extends StatelessWidget {
   final int selectedIndex;
@@ -88,28 +87,36 @@ class _NavItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (isCenter) {
-      // Центральная пятиугольная кнопка (идеальная)
+      // Центральная кнопка с Vector.svg и plus.svg поверх
       return Container(
         width: 100,
         alignment: Alignment.topCenter,
-        child: GestureDetector(
-          onTap: onTap,
-          child: Container(
-            margin: const EdgeInsets.only(bottom: 12),
-            width: 80,
-            height: 80,
-            child: ClipPath(
-              clipper: PentagonClipper(),
-              child: Container(
-                color: const Color(0xFFFFD600),
-                child: Center(
-                  child: SvgPicture.asset(
-                    icon,
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: onTap,
+            splashColor: Colors.black12,
+            highlightColor: Colors.transparent,
+            customBorder: const CircleBorder(),
+            child: Container(
+              margin: const EdgeInsets.only(bottom: 12),
+              width: 80,
+              height: 80,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  SvgPicture.asset(
+                    'assets/icons/Vector.svg',
+                    width: 80,
+                    height: 80,
+                  ),
+                  SvgPicture.asset(
+                    'assets/icons/plus.svg',
                     width: 40,
                     height: 40,
                     color: Colors.black,
                   ),
-                ),
+                ],
               ),
             ),
           ),
@@ -118,42 +125,47 @@ class _NavItem extends StatelessWidget {
     }
     // Обычные кнопки
     return Expanded(
-      child: GestureDetector(
-        onTap: onTap,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 36,
-              height: 36,
-              decoration: isSelected
-                  ? BoxDecoration(
-                      color: const Color(0xFFFFD600),
-                      borderRadius: BorderRadius.circular(12),
-                    )
-                  : null,
-              child: Center(
-                child: SvgPicture.asset(
-                  icon,
-                  width: 24,
-                  height: 24,
-                  color: isSelected ? Colors.black : Colors.grey,
-                ),
-              ),
-            ),
-            if (label.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.only(top: 4),
-                child: Text(
-                  label,
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          splashColor: Colors.black12,
+          highlightColor: Colors.transparent,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 36,
+                height: 36,
+                decoration: isSelected
+                    ? BoxDecoration(
+                  color: const Color(0xFFFFD600),
+                  borderRadius: BorderRadius.circular(12),
+                )
+                    : null,
+                child: Center(
+                  child: SvgPicture.asset(
+                    icon,
+                    width: 24,
+                    height: 24,
                     color: isSelected ? Colors.black : Colors.grey,
                   ),
                 ),
               ),
-          ],
+              if (label.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.only(top: 4),
+                  child: Text(
+                    label,
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      color: isSelected ? Colors.black : Colors.grey,
+                    ),
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );
