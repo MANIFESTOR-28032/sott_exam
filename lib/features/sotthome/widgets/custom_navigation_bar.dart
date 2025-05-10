@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'navigation/nav_button.dart';
 
 class CustomNavigationBar extends StatelessWidget {
   final int selectedIndex;
@@ -28,40 +29,32 @@ class CustomNavigationBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _NavItem(
+          NavButton(
             icon: 'assets/icons/logo.svg',
             label: 'Главная',
             isSelected: selectedIndex == 0,
             onTap: () => onDestinationSelected(0),
-            isCenter: false,
           ),
-          _NavItem(
+          NavButton(
             icon: 'assets/icons/search.svg',
             label: 'Поиск',
             isSelected: selectedIndex == 1,
             onTap: () => onDestinationSelected(1),
-            isCenter: false,
           ),
-          _NavItem(
-            icon: 'assets/icons/plus.svg',
-            label: '',
-            isSelected: selectedIndex == 2,
+          CenterButton(
             onTap: () => onDestinationSelected(2),
-            isCenter: true,
           ),
-          _NavItem(
+          NavButton(
             icon: 'assets/icons/discussion.svg',
             label: 'Чат',
             isSelected: selectedIndex == 3,
             onTap: () => onDestinationSelected(3),
-            isCenter: false,
           ),
-          _NavItem(
+          NavButton(
             icon: 'assets/icons/profile.svg',
             label: 'Профиль',
             isSelected: selectedIndex == 4,
             onTap: () => onDestinationSelected(4),
-            isCenter: false,
           ),
         ],
       ),
